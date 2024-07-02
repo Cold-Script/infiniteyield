@@ -17,7 +17,7 @@ if not game:IsLoaded() then
     notLoaded:Destroy()
 end
 
-currentVersion = "5.9.7"
+currentVersion = "tion"
 
 Holder = Instance.new("Frame")
 Title = Instance.new("TextLabel")
@@ -205,13 +205,13 @@ Title.Active = true
 Title.BackgroundColor3 = Color3.fromRGB(36,36,37)
 Title.BorderSizePixel = 0
 Title.Size = UDim2.new(0, 250, 0, 20)
-Title.Font = Enum.Font.SourceSans
+Title.Font = Enum.Font.GothamBold
 Title.TextSize = 18
-Title.Text = "Infinite Yield FE v" .. currentVersion
+Title.Text = "Command Educa" .. currentVersion
 
 do
 	local emoji = ({
-		["01 01"] = "🎆",
+		["01 01"] = "[🌌 New Year]",
 		[(function(Year)
 			local A = math.floor(Year/100)
 			local B = math.floor((13+8*A)/25)
@@ -228,9 +228,9 @@ do
 				return ("04 %02d"):format(G-31)
 			end
 			return ("03 %02d"):format(G)
-		end)(tonumber(os.date"%Y"))] = "🥚",
-		["10 31"] = "🎃",
-		["12 25"] = "🎄"
+		end)(tonumber(os.date"%Y"))] = "[🥚 Egg Event]",
+		["10 31"] = "[🎃 Halloween]",
+		["12 25"] = "[🎄 Chirsmart]"
 	})[os.date("%m %d")]
 	if emoji then
 		Title.Text = ("%s %s %s"):format(emoji, Title.Text, emoji)
@@ -4386,7 +4386,7 @@ CMDs[#CMDs + 1] = {NAME = 'exit', DESC = 'Kills roblox process'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'noclip', DESC = 'Go through objects'}
 CMDs[#CMDs + 1] = {NAME = 'unnoclip / clip', DESC = 'Disables noclip'}
-CMDs[#CMDs + 1] = {NAME = 'fly [speed]', DESC = 'Makes you fly'}
+CMDs[#CMDs + 1] = {NAME = 'fly / f [speed]', DESC = 'Makes you fly'}
 CMDs[#CMDs + 1] = {NAME = 'unfly', DESC = 'Disables fly'}
 CMDs[#CMDs + 1] = {NAME = 'flyspeed [num]', DESC = 'Set fly speed (default is 20)'}
 CMDs[#CMDs + 1] = {NAME = 'vehiclefly / vfly [speed]', DESC = 'Makes you fly in a vehicle'}
@@ -4400,7 +4400,7 @@ CMDs[#CMDs + 1] = {NAME = 'vehiclenoclip / vnoclip', DESC = 'Turns off vehicle c
 CMDs[#CMDs + 1] = {NAME = 'vehicleclip / vclip / unvnoclip', DESC = 'Enables vehicle collision'}
 CMDs[#CMDs + 1] = {NAME = 'float /  platform', DESC = 'Spawns a platform beneath you causing you to float'}
 CMDs[#CMDs + 1] = {NAME = 'unfloat / noplatform', DESC = 'Removes the platform'}
-CMDs[#CMDs + 1] = {NAME = 'swim', DESC = 'Allows you to swim in the air'}
+CMDs[#CMDs + 1] = {NAME = 'swim / sw', DESC = 'Allows you to swim in the air'}
 CMDs[#CMDs + 1] = {NAME = 'unswim / noswim', DESC = 'Stops you from swimming everywhere'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'setwaypoint / swp [name]', DESC = 'Sets a waypoint at your position'}
@@ -4461,7 +4461,7 @@ CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
 CMDs[#CMDs + 1] = {NAME = 'esp', DESC = 'View all players and their status'}
 CMDs[#CMDs + 1] = {NAME = 'noesp / unesp', DESC = 'Removes esp'}
 CMDs[#CMDs + 1] = {NAME = 'esptransparency [number]', DESC = 'Changes the transparency of esp related commands'}
-CMDs[#CMDs + 1] = {NAME = 'partesp [part name]', DESC = 'Highlights a part'}
+CMDs[#CMDs + 1] = {NAME = 'high [part name]', DESC = 'Highlights a part'}
 CMDs[#CMDs + 1] = {NAME = 'unpartesp / nopartesp [part name]', DESC = 'removes partesp'}
 CMDs[#CMDs + 1] = {NAME = 'chams', DESC = 'ESP but without text in the way'}
 CMDs[#CMDs + 1] = {NAME = 'nochams / unchams', DESC = 'Removes chams'}
@@ -4492,7 +4492,7 @@ CMDs[#CMDs + 1] = {NAME = 'maxzoom [num]', DESC = 'Maximum camera zoom'}
 CMDs[#CMDs + 1] = {NAME = 'minzoom [num]', DESC = 'Minimum camera zoom'}
 CMDs[#CMDs + 1] = {NAME = 'camdistance [num]', DESC = 'Changes camera distance from your player'}
 CMDs[#CMDs + 1] = {NAME = 'fov [num]', DESC = 'Adjusts field of view (default is 70)'}
-CMDs[#CMDs + 1] = {NAME = 'fixcam / restorecam', DESC = 'Fixes camera'}
+CMDs[#CMDs + 1] = {NAME = 'rc / restorecam', DESC = 'Fixes camera'}
 CMDs[#CMDs + 1] = {NAME = 'enableshiftlock / enablesl', DESC = 'Enables the shift lock option'}
 CMDs[#CMDs + 1] = {NAME = 'lookat [player]', DESC = 'Moves your camera view to a player'}
 CMDs[#CMDs + 1] = {NAME = '', DESC = ''}
@@ -6851,7 +6851,7 @@ addcmd("exit", {}, function(args, speaker)
 end)
 
 local Noclipping = nil
-addcmd('noclip',{},function(args, speaker)
+addcmd('noclip',{'nc'},function(args, speaker)
 	Clip = false
 	wait(0.1)
 	local function NoclipLoop()
@@ -7066,7 +7066,7 @@ local mobilefly = function(speaker, vfly)
 	end)
 end
 
-addcmd('fly',{},function(args, speaker)
+addcmd('fly',{'f'},function(args, speaker)
 	if not IsOnMobile then
 		NOFLY()
 		wait()
@@ -7086,7 +7086,7 @@ addcmd('flyspeed',{'flysp'},function(args, speaker)
 	end
 end)
 
-addcmd('unfly',{'nofly','novfly','unvehiclefly','novehiclefly','unvfly'},function(args, speaker)
+addcmd('unf',{'nof','novfly','unvehiclefly','novehiclefly','unvfly'},function(args, speaker)
 	if not IsOnMobile then NOFLY() else unmobilefly(speaker) end
 end)
 
